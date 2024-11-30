@@ -1145,7 +1145,7 @@ variable "sys_upgrade_controller_version" {
 
 variable "k3s_server_args_map" {
   type        = list(string)
-  default     = {}
+  default     = []
   description = "TODO"
 
 }
