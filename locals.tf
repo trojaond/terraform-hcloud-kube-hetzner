@@ -432,9 +432,10 @@ locals {
   kube_controller_manager_arg = "flex-volume-plugin-dir=/var/lib/kubelet/volumeplugins"
   flannel_iface               = "eth1"
 
+
   additional_kube_apiserver_arg = join("\n",
     [
-      for var_name, var_value in var.additional_k3s_environment :
+      for var_name, var_value in var.k3s_server_args_map :
       "${var_name}=\"${var_value}\""
     ]
   )

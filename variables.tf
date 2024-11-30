@@ -1141,3 +1141,11 @@ variable "sys_upgrade_controller_version" {
   default     = "v0.14.2"
   description = "Version of the System Upgrade Controller for automated upgrades of k3s. See https://github.com/rancher/system-upgrade-controller/releases for the available versions."
 }
+
+
+variable "k3s_server_args_map" {
+  type        = map(any)
+  default     = {}
+  description = "Envs to be updated in the k3s server args."
+
+}
