@@ -191,7 +191,6 @@ resource "null_resource" "control_planes" {
 
   triggers = {
     control_plane_id = module.control_planes[each.key].id
-    install_k3s_server_command = sha1(join(",", local.install_k3s_server))
   }
 
   connection {

@@ -432,7 +432,13 @@ locals {
   kube_controller_manager_arg = "flex-volume-plugin-dir=/var/lib/kubelet/volumeplugins"
   flannel_iface               = "eth1"
 
-  kube_apiserver_arg = var.authentication_config != "" ? ["authentication-config=/etc/rancher/k3s/authentication_config.yaml" ] : [kube-apiserver-arg= service-account-issuer=https://s3.us-east-1.amazonaws.com/hetzner-riskclose-irsa-oidc-discovery] ]
+  additional_kube_apiserver_arg = join("\n",
+    [
+      for var_name, var_value in var.additional_k3s_environment :
+      "${var_name}=\"${var_value}\""
+    ]
+  )
+  kube_apiserver_arg = concat(var.authentication_config != "" ? ["authentication-config=/etc/rancher/k3s/authentication_config.yaml"] : [], ["kube-apiserver-arg=${local.additional_kube_apiserver_arg}"])
 
   cilium_values = var.cilium_values != "" ? var.cilium_values : <<EOT
 # Enable Kubernetes host-scope IPAM mode (required for K3s + Hetzner CCM)
