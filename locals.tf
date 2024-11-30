@@ -433,13 +433,7 @@ locals {
   flannel_iface               = "eth1"
 
 
-  additional_kube_apiserver_arg = join("\n",
-    [
-      for var_name, var_value in var.k3s_server_args_map :
-      "${var_name}=\"${var_value}\""
-    ]
-  )
-  kube_apiserver_arg = concat(var.authentication_config != "" ? ["authentication-config=/etc/rancher/k3s/authentication_config.yaml"] : [], ["kube-apiserver-arg=${local.additional_kube_apiserver_arg}"])
+  kube_apiserver_arg = concat(var.authentication_config != "" ? ["authentication-config=/etc/rancher/k3s/authentication_config.yaml"] : [], var.k3s_server_args_map)
 
   cilium_values = var.cilium_values != "" ? var.cilium_values : <<EOT
 # Enable Kubernetes host-scope IPAM mode (required for K3s + Hetzner CCM)

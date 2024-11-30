@@ -1144,8 +1144,8 @@ variable "sys_upgrade_controller_version" {
 
 
 variable "k3s_server_args_map" {
-  type        = map(any)
+  type        = list(string)
   default     = {}
-  description = "Envs to be updated in the k3s server args."
+  description = "TODO"
 
 }
